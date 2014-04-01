@@ -8,7 +8,7 @@
 
 int main()
 {
-    if (!SetupConfig("config.ini"))
+    if (!IRC_SetupConfig("config.ini"))
     {
         printf("Fatal error: Failed to load config!\n");
         goto iExitLoc;
