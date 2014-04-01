@@ -1,21 +1,23 @@
 /**
- * @project: CBot - An Internet Relay Chat bot written in c
+ * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: socket.c
  * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: N/A
+ * @last update: Cross-platform support
  */
 #include "socket.h"
 int IRC_AttemptConnection(const char *szAddress, int iPort)
 {
+	#if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
     WSADATA
         iWsa;
 
-    if (WSAStartup(MAKEWORD(2, 2), &iWsa) == 0)
-    {
+    if (WSAStartup(MAKEWORD(2, 2), &iWsa) != 0)
+     return 1;
+	#endif
+
         if ((iSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) != INVALID_SOCKET)
         {
-            struct
-                sockaddr_in iServices;
+            struct sockaddr_in iServices;
 
             iServices.sin_family = AF_INET;
             iServices.sin_port = htons(iPort);
@@ -23,15 +25,19 @@ int IRC_AttemptConnection(const char *szAddress, int iPort)
 
             if (!connect(iSocket, (struct sockaddr *) &iServices, sizeof (iServices)))
             {
-                HANDLE iCoreThread = CreateThread(NULL, 0, IRC_ProcessDataThread, NULL, 0, NULL);
-                WaitForSingleObject(iCoreThread, INFINITE);
+				THANDLE iCoreThread;
+				bool success = StartThread(&iCoreThread, IRC_ProcessDataThread, NULL);
+                WaitForThread(iCoreThread);
 
-                return iCoreThread != NULL;
+                return success;
             }
         }
-    }
+
     closesocket(iSocket);
+
+    #if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
     WSACleanup();
+    #endif
 
     return 0;
 }
@@ -48,7 +54,7 @@ int IRC_SendRaw(char *szRawCommand, ...)
     return send(iSocket, szBuffer, strlen(szBuffer), 0) != SOCKET_ERROR;
 }
 
-DWORD WINAPI IRC_ProcessDataThread(LPVOID lpParam)
+THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
 {
     size_t
         iRecvSize;
