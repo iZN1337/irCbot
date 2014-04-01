@@ -1,4 +1,13 @@
-CBot
+ir<b>C</b>bot
 ====
 
-CBot - An <b>I</b>nternet <b>R</b>elay <b>C</b>hat bot written in c
+ir<b>C</b>bot - An Internet Relay <b>C</b>hat bot written in <b>C</b>
+
+
+- <b>TODO LIST</b>
+- General cleanup (headers with useless includes, also main.c loading)
+- Config parser
+- Error handler
+- Command handler
+- Event handler (for PING/PRIVMSG etc...)
+- ...
