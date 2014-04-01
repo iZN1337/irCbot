@@ -1,4 +1,4 @@
-CBot
+ir<b>C</b>bot
 ====
 
-CBot - An <b>I</b>nternet <b>R</b>elay <b>C</b>hat bot written in c
+ir<b>C</b>bot - An Internet Relay <b>C</b>hat bot written in <b>C</b>
