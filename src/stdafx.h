@@ -2,7 +2,7 @@
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: stdafx.h
  * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: N/A
+ * @last update: Add headers
  */
 #pragma once
 
@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <limits.h>
 
 #if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
 	#include <windows.h>
