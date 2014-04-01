@@ -15,7 +15,7 @@ int IRC_SetupConfig(const char *pLocation)
     {
         while (fgets(szBuffer, sizeof (szBuffer), pFile) != NULL)
         {
-            if (szBuffer[0] != ';' && szBuffer[0] != '\n') /* Skipping comments and new lines */
+            if (szBuffer[0] != ';') /* Skipping comments and new lines */
             {
                 // finish
             }
