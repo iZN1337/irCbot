@@ -2,7 +2,7 @@
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: stdafx.h
  * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: N/A
+ * @last update: Add headers
  */
 #pragma once
 
