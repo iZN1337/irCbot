@@ -36,6 +36,5 @@ int main(int argc, char **argv)
     }
 
     iExitLoc:
-    getchar();
     return 0;
 }
