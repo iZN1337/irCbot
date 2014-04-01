@@ -6,7 +6,7 @@
  */
 #include "commands.h"
 
-void CMD_Ping(/* pass data such as channel and nickname etc... */)
+void CMD_Ping(/* pass data such as channel, nickname, arguments etc... */)
 {
     return;
 }
