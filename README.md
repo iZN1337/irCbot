@@ -9,4 +9,5 @@ ir<b>C</b>bot - An Internet Relay <b>C</b>hat bot written in <b>C</b>
 - Config parser
 - Error handler
 - Command handler
+- Event handler (for PING/PRIVMSG etc...)
 - ...
