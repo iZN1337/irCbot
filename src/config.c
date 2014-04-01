@@ -1,13 +1,10 @@
 /**
  * @project: irCbot - An Internet Relay Chat bot written in C
- * @file: main.h
+ * @file: config.c
  * @author: Djole, King_Hual <pop96x@gmail.com>, <>
  * @last update: N/A
  */
-#ifndef MAIN_H_INCLUDED
-#define MAIN_H_INCLUDED
-
-#include <stdio.h>
-
-#include "socket.h"
-#endif // MAIN_H_INCLUDED
+int IRC_SetupConfig(const char *szLocation)
+{
+    return 0;
+}

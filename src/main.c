@@ -1,5 +1,5 @@
 /**
- * @project: CBot - An Internet Relay Chat bot written in c
+ * @project: irCbot - An Internet Relay Chat bot written in C
  * @file: main.c
  * @author: Djole, King_Hual <pop96x@gmail.com>, <>
  * @last update: N/A
@@ -8,11 +8,19 @@
 
 int main()
 {
-    if (!IRC_AttemptConnection("94.242.253.75", 6667))
+    if (!SetupConfig("config.ini"))
     {
-        printf("Connection failed!\nPress any key to continue...");
-        getchar();
+        printf("Fatal error: Failed to load config!\n");
+        goto iExitLoc;
     }
 
+    if (!IRC_AttemptConnection("94.242.253.75", 6667))
+    {
+        printf("Fatal error: Failed to connect on IRC network!\n");
+        goto iExitLoc;
+    }
+
+    iExitLoc:
+    getchar();
     return 0;
 }

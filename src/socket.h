@@ -1,5 +1,5 @@
 /**
- * @project: CBot - An Internet Relay Chat bot written in c
+ * @project: irCbot - An Internet Relay Chat bot written in C
  * @file: socket.h
  * @author: Djole, King_Hual <pop96x@gmail.com>, <>
  * @last update: N/A
