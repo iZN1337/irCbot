@@ -16,3 +16,10 @@ unsigned int explode(char *pStr, char **pOut, const char *pDelim)
 
     return i;
 }
+
+void GetNameFromPath(char* out, const char* path, const char* name)
+{
+	memset(out, 0, strlen(out));
+	strcat(out, path);
+	strcat(out, name);
+}

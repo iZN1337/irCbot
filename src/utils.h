@@ -10,5 +10,6 @@
 #include "stdafx.h"
 
 unsigned int explode(char *pStr, char **pOut, const char *pDelim);
+void GetNameFromPath(char* out, const char* path, const char* name);
 
 #endif // UTILS_H_INCLUDED

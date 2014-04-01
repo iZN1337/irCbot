@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <limits.h>
 
 #if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
 	#include <windows.h>
