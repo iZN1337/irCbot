@@ -23,5 +23,6 @@
 #define false 0
 typedef unsigned char bool;
 
+#include "constants.h"
 #include "utils.h"
 #include "thread.h"

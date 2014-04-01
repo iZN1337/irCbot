@@ -7,7 +7,7 @@
 #ifndef CONSTANTS_H_INCLUDED
 #define CONSTANTS_H_INCLUDED
 
-#include <stdio.h>
+#include "stdafx.h"
 
 #define MAX_HOSTNAME_LENGTH (255)
 #define MAX_NICKNAME_LENGTH (30)

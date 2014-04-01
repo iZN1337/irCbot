@@ -7,6 +7,8 @@
 #ifndef COMMANDS_H_INCLUDED
 #define COMMANDS_H_INCLUDED
 
+#include "stdafx.h"
+
 void CMD_Ping(/* pass data such as channel and nickname etc... */);
 
 #endif // COMMANDS_H_INCLUDED

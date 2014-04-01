@@ -7,7 +7,8 @@
 #ifndef CONFIG_H_INCLUDED
 #define CONFIG_H_INCLUDED
 
-#include <stdio.h>
+#include "stdafx.h"
+
 int IRC_SetupConfig(const char *szLocation);
 
 #endif // CONFIG_H_INCLUDED

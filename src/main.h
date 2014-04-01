@@ -7,10 +7,8 @@
 #ifndef MAIN_H_INCLUDED
 	#define MAIN_H_INCLUDED
 
-<<<<<<< HEAD
 #include "stdafx.h"
 #include "socket.h"
+#include "config.h"
 
-=======
->>>>>>> 4196396a9e9db972a14464e8ebb5f42ba47a200e
 #endif // MAIN_H_INCLUDED
