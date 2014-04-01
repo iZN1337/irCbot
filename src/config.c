@@ -2,25 +2,31 @@
  * @project: irCbot - An Internet Relay Chat bot written in C
  * @file: config.c
  * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: N/A
+ * @last update: Update configuration parser
  */
 #include "config.h"
+
 int IRC_SetupConfig(const char *pLocation)
 {
-    FILE
-        *pFile;
-    char
-        szBuffer[1024];
-    if ((pFile = fopen(pLocation, "r")) != NULL)
-    {
-        while (fgets(szBuffer, sizeof (szBuffer), pFile) != NULL)
-        {
-            if (szBuffer[0] != ';') /* Skipping comments and new lines */
-            {
-                // finish
-            }
-        }
-        return 1;
-    }
+	char* pString = IRC_ReadFile(pLocation);
+	if(pString != NULL)
+	{
+		char* pLine = strtok(pString, "\n");
+		while((pLine = strtok(NULL, "\n")) != NULL)
+		{
+			if(pLine[0] != ';' && pLine[0] != '\n')
+			{
+				char* key = pLine,* pValue = NULL;
+				pValue = memchr(pLine, '=', strlen(pLine));
+				if(pValue != NULL)
+					*pValue++ = 0;
+
+				return 1;
+			}
+		}
+	}
+
+	/** commented out as pointers will be stored globally **/
+	//free(pString);
     return 0;
 }
