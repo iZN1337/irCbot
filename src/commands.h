@@ -7,8 +7,6 @@
 #ifndef COMMANDS_H_INCLUDED
 #define COMMANDS_H_INCLUDED
 
-#include <stdio.h>
-
-void CMD_Ping(/* pass data such as channel, nickname, arguments etc... */);
+void CMD_Ping(/* pass data such as channel and nickname etc... */);
 
 #endif // COMMANDS_H_INCLUDED
