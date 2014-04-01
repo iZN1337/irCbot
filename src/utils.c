@@ -2,7 +2,7 @@
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: utils.c
  * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: N/A
+ * @last update: Add GetNameFromPath
  */
 #include "utils.h"
 
@@ -15,4 +15,11 @@ unsigned int explode(char *pStr, char **pOut, const char *pDelim)
     while((pOut[++i] = strtok(NULL, pDelim)) != NULL);
 
     return i;
+}
+
+void GetNameFromPath(char* out, const char* path, const char* name)
+{
+	memset(out, 0, strlen(out));
+	strcat(out, path);
+	strcat(out, name);
 }
