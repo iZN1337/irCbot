@@ -71,7 +71,7 @@ char* IRC_ReadFile(const char *szPath)
 char *trim(char *szString)
 {
 	unsigned int i, j = strlen(szString)-1;
-	while(isspace(szString[i ++]));
+	while(isspace(szString[++ i]));
 	while(isspace(szString[-- j]));
 	
 	szString[j + 1] = '\0';
