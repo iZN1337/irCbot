@@ -4,6 +4,7 @@
  * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
  * @last update: N/A
  */
+
 #include "socket.h"
 int IRC_AttemptConnection(const char *szAddress, int iPort)
 {

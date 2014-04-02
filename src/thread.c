@@ -4,6 +4,7 @@
  * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
  * @last update: N/A
  */
+
 #include "thread.h"
 
 bool StartThread(THANDLE* handle, LPTHREAD_START_ROUTINE start_routine, void* arg)

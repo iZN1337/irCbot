@@ -4,6 +4,7 @@
  * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
  * @last update: N/A
  */
+
 #include "utils.h"
 
 unsigned int explode(char *szStr, char **ppOut, const char *szDelim)
