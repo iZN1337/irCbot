@@ -75,7 +75,7 @@ char *trim(char *szString)
 	while(isspace(szString[-- j]));
 	
 	szString[j + 1] = '\0';
-	return &szString[i];
+	return &szString[i - 1];
 }
 
 char* replace_first(char* szString, const char cChr, const char cReplacement)
