@@ -6,6 +6,21 @@
  */
 #include "config.h"
 
+const static char* ppConfigKeys[INI_MAX_KEYS] =
+{
+	"server",
+	"port",
+	"ssl",
+	"nickname",
+	"username",
+	"realname",
+	"cmddelimiter",
+	"channels",
+	"perform"
+};
+
+char* ppConfig[INI_MAX_KEYS];
+
 int IRC_SetupConfig(const char *pLocation)
 {
 	char* pString = IRC_ReadFile(pLocation);
@@ -21,7 +36,13 @@ int IRC_SetupConfig(const char *pLocation)
 
 				pValue = memchr(pLine, '=', strlen(pLine));
 				if(pValue != NULL)
+				{
 					*pValue++ = 0;
+					signed int idx = GetKeyIndex(ppConfigKeys, pKey);
+
+					if(idx != -1)
+						ppConfig[idx] = pValue;
+				}
 
 			}
 		}

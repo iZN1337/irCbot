@@ -6,32 +6,56 @@
  */
 #include "utils.h"
 
-unsigned int explode(char *pStr, char **pOut, const char *pDelim)
+unsigned int explode(char *szStr, char **ppOut, const char *szDelim)
 {
     unsigned int
         i = 0;
-    pOut[0] = strtok(pStr, pDelim);
+    ppOut[0] = strtok(szStr, szDelim);
 
-    while((pOut[++i] = strtok(NULL, pDelim)) != NULL);
+    while((ppOut[++i] = strtok(NULL, szDelim)) != NULL);
 
     return i;
 }
 
-void GetNameFromPath(char* out, const char* path, const char* name)
+char* GetApplicationPath(char* szMargv0)
 {
-	memset(out, 0, strlen(out));
-	strcat(out, path);
-	strcat(out, name);
+	char* addr;
+	if((addr = strrchr(szMargv0, '/')) == NULL)
+		addr = strrchr(szMargv0, '\\');
+
+	szMargv0[((unsigned int)addr-(unsigned int)szMargv0)+1] = 0;
+	return szMargv0;
 }
 
-char* IRC_ReadFile(const char* pPath)
+void GetNameFromPath(char* lpOut, const char* szPath, const char* szName)
+{
+	memset(lpOut, 0, strlen(lpOut));
+	strcat(lpOut, szPath);
+	strcat(lpOut, szName);
+}
+
+signed int GetKeyIndex(const char** ppKeys, const char* szKey)
+{
+	signed int i = 0;
+
+	do
+	{
+		if(!strcmp(ppKeys[i], szKey))
+			return i;
+	}
+	while(ppKeys[++i] != NULL);
+
+	return -1;
+}
+
+char* IRC_ReadFile(const char* szPath)
 {
     FILE
         *pFile;
 
 	char* pContents = NULL;
 
-    if ((pFile = fopen(pPath, "r")) != NULL)
+    if ((pFile = fopen(szPath, "r")) != NULL)
     {
     	if (fseek(pFile, 0, SEEK_END) != 0)
 			return pContents;

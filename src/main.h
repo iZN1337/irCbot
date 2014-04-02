@@ -9,6 +9,5 @@
 
 #include "stdafx.h"
 #include "socket.h"
-#include "config.h"
 
 #endif // MAIN_H_INCLUDED

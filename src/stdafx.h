@@ -26,4 +26,5 @@ typedef unsigned char bool;
 
 #include "constants.h"
 #include "utils.h"
+#include "config.h"
 #include "thread.h"

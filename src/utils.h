@@ -9,8 +9,10 @@
 
 #include "stdafx.h"
 
-unsigned int explode(char *pStr, char **pOut, const char *pDelim);
-void GetNameFromPath(char* out, const char* path, const char* name);
-char* IRC_ReadFile(const char* pPath);
+unsigned int explode(char *szStr, char **ppOut, const char *szDelim);
+char* GetApplicationPath(char* szMargv0);
+void GetNameFromPath(char* lpOut, const char* szPath, const char* szName);
+signed int GetKeyIndex(const char** ppKeys, const char* szKey);
+char* IRC_ReadFile(const char* szPath);
 
 #endif // UTILS_H_INCLUDED

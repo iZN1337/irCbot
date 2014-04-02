@@ -35,7 +35,7 @@
 
 SOCKET iSocket;
 
-int IRC_AttemptConnection(const char *address, int port);
+int IRC_AttemptConnection(const char *szAddress, int iPort);
 int IRC_SendRaw(char *szRawCommand, ...);
 THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam);
 
