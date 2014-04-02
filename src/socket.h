@@ -1,8 +1,8 @@
 /**
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: socket.h
- * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: Cross-platform support
+ * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
+ * @last update: N/A
  */
 #ifndef SOCKET_H_INCLUDED
 	#define SOCKET_H_INCLUDED
@@ -14,7 +14,7 @@
 	#define WIN32_LEAN_AND_MEAN
 	#include <winsock2.h>
 	#if (defined _MSC_VER)
-		#pragma comment (lib, "Ws2_32.lib") // compiling on a ms compiler
+		#pragma comment (lib, "Ws2_32.lib")
 	#endif
 #else
 	#include <sys/socket.h>

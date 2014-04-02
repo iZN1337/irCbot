@@ -1,12 +1,12 @@
 /**
  * @project: irCbot - An Internet Relay Chat bot written in C
  * @file: config.c
- * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: Update configuration parser
+ * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
+ * @last update: N/A
  */
 #include "config.h"
 
-const static char* ppConfigKeys[INI_MAX_KEYS] =
+const static char *ppConfigKeys[INI_MAX_KEYS] =
 {
 	"server",
 	"port",
@@ -19,7 +19,7 @@ const static char* ppConfigKeys[INI_MAX_KEYS] =
 	"perform"
 };
 
-char* ppConfig[INI_MAX_KEYS];
+char *ppConfig[INI_MAX_KEYS];
 
 int IRC_SetupConfig(const char *pLocation)
 {
@@ -27,30 +27,25 @@ int IRC_SetupConfig(const char *pLocation)
 
 	if(pString != NULL)
 	{
-		char* pLine = strtok(pString, "\n");
+		char *pLine = strtok(pString, "\n");
 		while((pLine = strtok(NULL, "\n")) != NULL)
 		{
 			if(pLine[0] != ';')
 			{
-				char* pKey = pLine,* pValue = NULL;
+				char *pKey = pLine, *pValue = NULL;
 
 				pValue = memchr(pLine, '=', strlen(pLine));
 				if(pValue != NULL)
 				{
-					*pValue++ = 0;
-					signed int idx = GetKeyIndex(ppConfigKeys, pKey);
+					*pValue ++ = 0;
+					signed int iIdx = GetKeyIndex(ppConfigKeys, pKey);
 
-					if(idx != -1)
-						ppConfig[idx] = pValue;
+					if(iIdx != -1)
+						ppConfig[iIdx] = pValue;
 				}
-
 			}
 		}
-
 		return 1;
 	}
-
-	/** commented out as pointers will be stored globally **/
-	//free(pString);
     return 0;
 }

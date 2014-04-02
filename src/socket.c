@@ -1,16 +1,14 @@
 /**
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: socket.c
- * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: Cross-platform support
+ * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
+ * @last update: N/A
  */
 #include "socket.h"
 int IRC_AttemptConnection(const char *szAddress, int iPort)
 {
 	#if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
-    WSADATA
-        iWsa;
-
+    WSADATA iWsa;
     if (WSAStartup(MAKEWORD(2, 2), &iWsa) != 0)
      return 1;
 	#endif
@@ -26,10 +24,10 @@ int IRC_AttemptConnection(const char *szAddress, int iPort)
             if (!connect(iSocket, (struct sockaddr *) &iServices, sizeof (iServices)))
             {
 				THANDLE iCoreThread;
-				bool success = StartThread(&iCoreThread, IRC_ProcessDataThread, NULL);
+				bool bSuccess = StartThread(&iCoreThread, IRC_ProcessDataThread, NULL);
                 WaitForThread(iCoreThread);
 
-                return success;
+                return bSuccess;
             }
         }
 
@@ -56,10 +54,8 @@ int IRC_SendRaw(char *szRawCommand, ...)
 
 THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
 {
-    size_t
-        iRecvSize;
-    char
-        szBuffer[4096], *pParts[35];
+    size_t iRecvSize;
+    char szBuffer[4096], *pParts[35];
 
     IRC_SendRaw("NICK myCBot_\r\n");
     IRC_SendRaw("USER myCBot_ * * :myCBot_\r\n");

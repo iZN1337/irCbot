@@ -1,8 +1,8 @@
 /**
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: stdafx.h
- * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: Add headers
+ * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
+ * @last update: N/A
  */
 #pragma once
 
@@ -17,8 +17,6 @@
 #else
 	typedef void* HANDLE;
 #endif
-
-// bool-related
 
 #define true 1
 #define false 0

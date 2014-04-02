@@ -1,8 +1,8 @@
 /**
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: utils.c
- * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: Add IRC_ReadFile
+ * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
+ * @last update: N/A
  */
 #include "utils.h"
 
@@ -17,17 +17,17 @@ unsigned int explode(char *szStr, char **ppOut, const char *szDelim)
     return i;
 }
 
-char* GetApplicationPath(char* szMargv0)
+char* GetApplicationPath(char *szMargv0)
 {
-	char* addr;
-	if((addr = strrchr(szMargv0, '/')) == NULL)
-		addr = strrchr(szMargv0, '\\');
+	char *pAddr;
+	if((pAddr = strrchr(szMargv0, '/')) == NULL)
+		pAddr = strrchr(szMargv0, '\\');
 
-	szMargv0[((unsigned int)addr-(unsigned int)szMargv0)+1] = 0;
+	szMargv0[((unsigned int)pAddr - (unsigned int)szMargv0) + 1] = 0;
 	return szMargv0;
 }
 
-void GetNameFromPath(char* lpOut, const char* szPath, const char* szName)
+void GetNameFromPath(char *lpOut, const char *szPath, const char *szName)
 {
 	memset(lpOut, 0, strlen(lpOut));
 	strcat(lpOut, szPath);
@@ -37,23 +37,19 @@ void GetNameFromPath(char* lpOut, const char* szPath, const char* szName)
 signed int GetKeyIndex(const char** ppKeys, const char* szKey)
 {
 	signed int i = 0;
-
 	do
 	{
 		if(!strcmp(ppKeys[i], szKey))
 			return i;
 	}
-	while(ppKeys[++i] != NULL);
-
+	while(ppKeys[++ i] != NULL);
 	return -1;
 }
 
-char* IRC_ReadFile(const char* szPath)
+char* IRC_ReadFile(const char *szPath)
 {
-    FILE
-        *pFile;
-
-	char* pContents = NULL;
+    FILE *pFile;
+	char *pContents = NULL;
 
     if ((pFile = fopen(szPath, "r")) != NULL)
     {

@@ -1,8 +1,8 @@
 /**
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: utils.h
- * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: Add IRC_ReadFile
+ * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
+ * @last update: N/A
  */
 #ifndef UTILS_H_INCLUDED
 #define UTILS_H_INCLUDED

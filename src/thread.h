@@ -1,7 +1,7 @@
 /**
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: thread.h
- * @author: Djole, King_Hual <pop96x@gmail.com>, <>
+ * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
  * @last update: N/A
  */
 #include "stdafx.h"

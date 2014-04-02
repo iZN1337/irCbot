@@ -1,19 +1,16 @@
 /**
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: main.c
- * @author: Djole, King_Hual <pop96x@gmail.com>, <>
- * @last update: Add proper application path string
+ * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
+ * @last update: N/A
  */
 #include "main.h"
 
 int main(int argc, char **argv)
 {
-	// get application startup path
+    char szConfigPath[PATH_MAX];
 
 	pAppPath = GetApplicationPath(argv[0]);
-
-	char
-		szConfigPath[PATH_MAX];
 	GetNameFromPath(szConfigPath, pAppPath, "config.ini");
 
     if (!IRC_SetupConfig(szConfigPath))
