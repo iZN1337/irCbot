@@ -68,14 +68,13 @@ char* IRC_ReadFile(const char *szPath)
 	return pContents; // return a pointer to the file contents
 }
 
-char* trim(char* szString)
+char *trim(char *szString)
 {
-	unsigned int i = 0, j = strlen(szString)-1;
-
-	while(szString[i] == ' ' || szString[i] == '\t') ++i;
-	while(szString[j] == ' ' || szString[j] == '\t') --j;
-
-	szString[j+1] = 0;
+	unsigned int i, j = strlen(szString)-1;
+	while(isspace(szString[i ++]));
+	while(isspace(szString[-- j]));
+	
+	szString[j + 1] = '\0';
 	return &szString[i];
 }
 
