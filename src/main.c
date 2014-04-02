@@ -8,17 +8,16 @@
 
 int main(int argc, char **argv)
 {
-	// get application startup path
+	char
+	    *pAddr, szConfigPath[PATH_MAX];
+		
+	if ((pAddr = strrchr(argv[0], '/')) == NULL)
+		pAddr = strrchr(argv[0], '\\');
 
-	char* addr;
-	if((addr = strrchr(argv[0], '/')) == NULL)
-		addr = strrchr(argv[0], '\\');
+	argv[0][((unsigned int)pAddr - (unsigned int)argv[0]) + 1] = 0;
+	pAppPath = argv[0];
 
-	argv[0][((unsigned int)addr-(unsigned int)argv[0])+1] = 0;
-	szAppPath = argv[0];
-
-	char szConfigPath[PATH_MAX];
-	GetNameFromPath(szConfigPath, szAppPath, "config.ini");
+	GetNameFromPath(szConfigPath, pAppPath, "config.ini");
 
 
     if (!IRC_SetupConfig(szConfigPath))
