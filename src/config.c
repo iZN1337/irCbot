@@ -49,8 +49,6 @@ int IRC_SetupConfig(const char *pLocation)
 				char* pKey = trim(pLine); // trim space from key
 				pValue = trim(pValue); // trim space from value
 
-				printf("%s %s.\n", pKey, pValue);
-
 				signed int iIdx = GetKeyIndex(ppConfigKeys, pKey); // get the index of the key (to be stored in the appropriate index in ppConfig)
 
 				if(iIdx != -1) // if key is valid
