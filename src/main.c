@@ -6,17 +6,15 @@
  */
 #include "main.h"
 
-char* szAppPath;
-
 int main(int argc, char **argv)
 {
 	// get application startup path
 
-	szAppPath = GetApplicationPath(argv[0]);
+	pAppPath = GetApplicationPath(argv[0]);
 
 	char
 		szConfigPath[PATH_MAX];
-	GetNameFromPath(szConfigPath, szAppPath, "config.ini");
+	GetNameFromPath(szConfigPath, pAppPath, "config.ini");
 
     if (!IRC_SetupConfig(szConfigPath))
     {
