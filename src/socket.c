@@ -8,11 +8,10 @@
 int IRC_AttemptConnection(const char *szAddress, int iPort)
 {
 	#if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
-    WSADATA iWsa;
-    if (WSAStartup(MAKEWORD(2, 2), &iWsa) != 0)
-     return 1;
+        WSADATA iWsa;
+        if (WSAStartup(MAKEWORD(2, 2), &iWsa) != 0)
+            return 1;
 	#endif
-
         if ((iSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) != INVALID_SOCKET)
         {
             struct sockaddr_in iServices;
@@ -23,20 +22,16 @@ int IRC_AttemptConnection(const char *szAddress, int iPort)
 
             if (!connect(iSocket, (struct sockaddr *) &iServices, sizeof (iServices)))
             {
-				THANDLE iCoreThread;
-				bool bSuccess = StartThread(&iCoreThread, IRC_ProcessDataThread, NULL);
+                THANDLE iCoreThread;
+                bool bSuccess = StartThread(&iCoreThread, IRC_ProcessDataThread, NULL);
                 WaitForThread(iCoreThread);
-
                 return bSuccess;
             }
         }
-
-    closesocket(iSocket);
-
+	closesocket(iSocket);
     #if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
-    WSACleanup();
+        WSACleanup();
     #endif
-
     return 0;
 }
 
