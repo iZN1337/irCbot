@@ -6,8 +6,6 @@
  */
 #include "main.h"
 
-char* szAppPath;
-
 int main(int argc, char **argv)
 {
 	// get application startup path
