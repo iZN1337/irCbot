@@ -11,4 +11,7 @@
 #include "socket.h"
 #include "config.h"
 
+
+char
+    *pAppPath;
 #endif // MAIN_H_INCLUDED
