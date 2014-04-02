@@ -12,7 +12,6 @@ int IRC_AttemptConnection(const char *szAddress, int iPort)
         if (WSAStartup(MAKEWORD(2, 2), &iWsa) != 0)
             return 1;
 	#endif
-
         if ((iSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) != INVALID_SOCKET)
         {
             struct sockaddr_in iServices;
