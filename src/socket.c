@@ -7,11 +7,12 @@
 #include "socket.h"
 int IRC_AttemptConnection(const char *szAddress, int iPort)
 {
-    #if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
+	#if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
         WSADATA iWsa;
         if (WSAStartup(MAKEWORD(2, 2), &iWsa) != 0)
             return 1;
-    #endif
+	#endif
+
         if ((iSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) != INVALID_SOCKET)
         {
             struct sockaddr_in iServices;
