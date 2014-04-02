@@ -10,7 +10,7 @@
 #include "stdafx.h"
 #include "socket.h"
 
-
 char
     *pAppPath;
+
 #endif // MAIN_H_INCLUDED
