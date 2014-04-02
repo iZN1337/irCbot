@@ -10,6 +10,6 @@
 
 #include "stdafx.h"
 
-void CMD_Ping(/* pass data such as channel and nickname etc... */);
+void CMD_Ping(/* pass data such as channel and nickname etc... */); // TODO
 
 #endif // COMMANDS_H_INCLUDED

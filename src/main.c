@@ -7,20 +7,20 @@
 
 #include "main.h"
 
-int main(int argc, char **argv)
+int main(int argc, char **argv) // entry point
 {
-    char szConfigPath[PATH_MAX];
+    char szConfigPath[PATH_MAX]; // initialize a char array
 
-	pAppPath = GetApplicationPath(argv[0]);
-	GetNameFromPath(szConfigPath, pAppPath, "config.ini");
+	pAppPath = GetApplicationPath(argv[0]); // get the application path, argv[0] always stores application path
+	GetNameFromPath(szConfigPath, pAppPath, "config.ini"); // append "config.ini" to the application path
 
-    if (!IRC_SetupConfig(szConfigPath))
+    if (!IRC_SetupConfig(szConfigPath)) // load configuration from file
     {
         printf("Fatal error: Failed to load config!\n");
         goto iExitLoc;
     }
 
-    if (!IRC_AttemptConnection("94.242.253.75", 6667))
+    if (!IRC_AttemptConnection("94.242.253.75", 6667)) // connect to IP
     {
         printf("Fatal error: Failed to connect on IRC network!\n");
         goto iExitLoc;

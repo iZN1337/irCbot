@@ -11,6 +11,6 @@
 #include "stdafx.h"
 #include "socket.h"
 
-char *pAppPath;
+char *pAppPath; // char pointer, stores application path
 
 #endif // MAIN_H_INCLUDED
