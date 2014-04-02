@@ -8,6 +8,7 @@
 #ifndef UTILS_H_INCLUDED
 #define UTILS_H_INCLUDED
 
+#include <ctype.h>
 #include "stdafx.h"
 
 unsigned int explode(char *szStr, char **ppOut, const char *szDelim); // splits szStr into ppOut, using szDelim as a delimiter
