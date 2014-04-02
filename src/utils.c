@@ -67,3 +67,24 @@ char* IRC_ReadFile(const char *szPath)
 	}
 	return pContents; // return a pointer to the file contents
 }
+
+char* trim(char* szString)
+{
+	unsigned int i = 0, j = strlen(szString)-1;
+
+	while(szString[i] == ' ' || szString[i] == '\t') ++i;
+	while(szString[j] == ' ' || szString[j] == '\t') --j;
+
+	szString[j+1] = 0;
+	return &szString[i];
+}
+
+char* replace_first(char* szString, const char cChr, const char cReplacement)
+{
+	char* pChar = strchr(szString, cChr);
+	if(pChar == NULL)
+		return NULL;
+
+	*pChar = cReplacement;
+	return pChar;
+}

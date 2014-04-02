@@ -15,7 +15,7 @@ const static char *ppConfigKeys[INI_MAX_KEYS] = // a private constant array that
 	"nickname",		// CONFIG_VALUE_NICK
 	"username",		// CONFIG_VALUE_USER
 	"realname",		// CONFIG_VALUE_REAL
-	"cmddelimiter",	// CONFIG_VALUE_CMDDELIM
+	"cmdprefix",	// CONFIG_VALUE_CMDDELIM
 	"channels",		// CONFIG_VALUE_CHANNELS
 	"perform"		// CONFIG_VALUE_PERFORM
 };
@@ -31,19 +31,30 @@ int IRC_SetupConfig(const char *pLocation)
 		char *pLine = strtok(pString, "\n"); // split line by line
 		while((pLine = strtok(NULL, "\n")) != NULL) // loop through the lines
 		{
-			if(pLine[0] != ';') // not a comment
+			char *pValue = NULL;
+
+			char* comment = replace_first(pLine, ';', 0); // remove comments if there are any, return pointer to the replaced char
+
+			if(comment)
 			{
-				char *pKey = pLine, *pValue = NULL;
+				comment = trim(++comment); // get the comments just because we can
+			}
 
-				pValue = memchr(pLine, '=', strlen(pLine)); // get '=' position
-				if(pValue != NULL) // = is found
-				{
-					*pValue ++ = 0; // set = to \0, this splits the line into 2, and pointer is set to the char after
-					signed int iIdx = GetKeyIndex(ppConfigKeys, pKey); // get the index of the key (to be stored in the appropriate index in ppConfig)
+			pValue = memchr(pLine, '=', strlen(pLine)); // get '=' position
 
-					if(iIdx != -1) // if key is valid
-						ppConfig[iIdx] = pValue; // store value in global configuration values array
-				}
+			if(pValue != NULL) // '=' is found
+			{
+				*pValue++ = 0; // set '=' to '\0', this splits the line into 2, and pointer is set to the char after
+
+				char* pKey = trim(pLine); // trim space from key
+				pValue = trim(pValue); // trim space from value
+
+				printf("%s %s.\n", pKey, pValue);
+
+				signed int iIdx = GetKeyIndex(ppConfigKeys, pKey); // get the index of the key (to be stored in the appropriate index in ppConfig)
+
+				if(iIdx != -1) // if key is valid
+					ppConfig[iIdx] = pValue; // store value in global configuration values array
 			}
 		}
 		return 1; // success
