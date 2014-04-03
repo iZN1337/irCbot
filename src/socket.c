@@ -171,14 +171,15 @@ THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
             }
             else
             {
-                printf("===> %s", pParts[1]);
+                printf("=> %s\r\n", pParts[1]);
                 if (!strcmp(pParts[1], "001"))
                 {
-                    IRC_SendRaw("JOIN #unsuspiciouschannel\r\n");
+                    IRC_SendRaw("JOIN #no\r\n");
                     continue;
                 }
                 else if (!strcmp(pParts[1], "433"))
                 {
+                    // nick name conflict
                     continue;
                 }
             }
@@ -187,3 +188,4 @@ THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
     }
     return 0;
 }
+
