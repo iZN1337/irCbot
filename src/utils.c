@@ -70,8 +70,7 @@ char* IRC_ReadFile(const char *szPath)
 }
 
 char *trim(char *szString)
-{
-<<<<<<< HEAD
+
 	unsigned int i = 0, j = strlen(szString);
 
 	while(isspace(szString[i++]));
@@ -79,14 +78,6 @@ char *trim(char *szString)
 
 	szString[j+1] = 0;
 	return &szString[i-1];
-=======
-	unsigned int i, j = strlen(szString)-1;
-	while(isspace(szString[++ i]));
-	while(isspace(szString[-- j]));
-	
-	szString[j + 1] = '\0';
-	return &szString[i - 1];
->>>>>>> f0d4f1e2f72074f388a7a847c8369af5ed886a77
 }
 
 char* replace_first(char* szString, const char cChr, const char cReplacement)
