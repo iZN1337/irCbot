@@ -10,7 +10,7 @@
 
 #include "stdafx.h"
 
-unsigned int explode(char *szStr, char **ppOut, const char *szDelim); // splits szStr into ppOut, using szDelim as a delimiter
+unsigned int explode(char *szStr, char **ppOut, const char *szDelim, const size_t limit); // splits szStr into ppOut, using szDelim as a delimiter
 char* GetApplicationPath(char* szMargv0); // gets the application path
 void GetNameFromPath(char* lpOut, const char* szPath, const char* szName); // appends a filename to the specified path
 signed int GetKeyIndex(const char** ppKeys, const char* szKey); // gets the index of a string that matches a given string

@@ -7,13 +7,14 @@
 
 #include "utils.h"
 
-unsigned int explode(char *szStr, char **ppOut, const char *szDelim)
+unsigned int explode(char *szStr, char **ppOut, const char *szDelim, const size_t limit)
 {
     unsigned int
         i = 0;
-    ppOut[0] = strtok(szStr, szDelim); // split by delim
 
-    while((ppOut[++i] = strtok(NULL, szDelim)) != NULL); // set ppOut to point to the appropriate split string
+    ppOut[0] = strtok(szStr, szDelim); // split by delim
+    while(i != limit-1 && (ppOut[++i] = strtok(NULL, szDelim)) != NULL ); // set ppOut to point to the appropriate split string
+	ppOut[i+1] = ppOut[i]+strlen(ppOut[i])+1;
 
     return i; // return number of strings the string was split into
 }
@@ -70,13 +71,13 @@ char* IRC_ReadFile(const char *szPath)
 
 char* trim(char* szString)
 {
-	unsigned int i = 0, j = strlen(szString)-1;
+	unsigned int i = 0, j = strlen(szString);
 
-	while(szString[i] == ' ' || szString[i] == '\t') ++i;
-	while(szString[j] == ' ' || szString[j] == '\t') --j;
+	while(isspace(szString[i++]));
+	while(isspace(szString[--j]));
 
 	szString[j+1] = 0;
-	return &szString[i];
+	return &szString[i-1];
 }
 
 char* replace_first(char* szString, const char cChr, const char cReplacement)

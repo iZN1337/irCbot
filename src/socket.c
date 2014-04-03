@@ -51,18 +51,24 @@ int IRC_SendRaw(char *szRawCommand, ...) // send a raw formatted message
 THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
 {
     size_t iRecvSize;
-    char szBuffer[4096], *pParts[35];
+    char szBuffer[4096], *pParts[6];
 
     IRC_SendRaw("NICK myCBot_\r\n"); // send the NICK command
     IRC_SendRaw("USER myCBot_ * * :myCBot_\r\n"); // register with daemon
 
     while ((iRecvSize = recv(iSocket, szBuffer, sizeof (szBuffer), 0))) // receive stream response, 4096 bytes at a time
     {
+
+    	printf(szBuffer);
+
 		szBuffer[iRecvSize] = '\0'; // zero-terminated
-		printf("%s\r\n", szBuffer); // print line to console
-		explode(szBuffer, pParts, " "); // split parameters
+		//printf("%s\r\n", szBuffer); // print line to console
+		explode(szBuffer, pParts, " ", 5); // split parameters
+
 		if (!strcmp(pParts[0], "PING")) // if first parameter is PING
 			IRC_SendRaw("PONG %s\r\n", pParts[1]); // send PONG
+		else if(!strcmp(pParts[1], "001"))
+			printf("OMG");
     }
 
     return 0;

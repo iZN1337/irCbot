@@ -12,6 +12,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <limits.h>
+#include <ctype.h>
 
 #if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
 	#include <windows.h>
