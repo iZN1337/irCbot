@@ -73,11 +73,11 @@ char *trim(char *szString)
 
 	unsigned int i = 0, j = strlen(szString);
 
-	while(isspace(szString[++i]));
+	while(isspace(szString[i++]));
 	while(isspace(szString[--j]));
 
 	szString[j+1] = 0;
-	return &szString[i];
+	return &szString[i-1];
 }
 
 char* replace_first(char* szString, const char cChr, const char cReplacement)
