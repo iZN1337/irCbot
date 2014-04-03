@@ -101,11 +101,7 @@ char* IRC_ReadFile(const char *szPath)
 }
 
 char *trim(char *szString)
-<<<<<<< HEAD
 {
-=======
-
->>>>>>> cdd2da92661810e91d2ee527bd2a3cfc6aa78831
 	unsigned int i = 0, j = strlen(szString);
 
 	while(isspace(szString[i++]));
