@@ -67,38 +67,47 @@ THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
             if (!strcmp(pParts[0], "PING"))
             {
                 IRC_SendRaw("PONG %s\r\n", pParts[1]);
+                continue;
             }
             else if (!strcmp(pParts[1], "JOIN"))
             {
                 printf("IRC_OnJoin event\r\n");
+                continue;
             }
             else if (!strcmp(pParts[1], "PART"))
             {
                 printf("IRC_OnPart event\r\n");
+                continue;
             }
             else if (!strcmp(pParts[1], "KICK"))
             {
                 printf("IRC_OnKick event\r\n");
+                continue;
             }
             else if (!strcmp(pParts[1], "QUIT"))
             {
                 printf("IRC_OnQuit event\r\n");
+                continue;
             }
             else if (!strcmp(pParts[1], "MODE"))
             {
                 printf("IRC_OnMode event\r\n");
+                continue;
             }
             else if (!strcmp(pParts[1], "NICK"))
             {
                 printf("IRC_OnNick event\r\n");
+                continue;
             }
             else if (!strcmp(pParts[1], "TOPIC"))
             {
                 printf("IRC_OnTopic event\r\n");
+                continue;
             }
             else if (!strcmp(pParts[1], "NOTICE"))
             {
                 printf("IRC_OnNotice event\r\n");
+                continue;
             }
             else if (!strcmp(pParts[1], "PRIVMSG"))
             {
@@ -122,6 +131,7 @@ THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
                                 strcat(szParams, " ");
                             }
                             IRC_SendRaw("PRIVMSG %s :%s\r\n", pParts[2], szParams);
+                            continue;
                             /*
                             if (pParts[4])
                             {
@@ -151,16 +161,26 @@ THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
                 else
                 {
                     printf("PRIVATE MESSAGE!\r\n");
+                    continue;
                 }
             }
             else if (!strcmp(pParts[1], "ERROR"))
             {
                 printf("IRC_OnError event\r\n");
+                continue;
             }
             else
             {
+                printf("===> %s", pParts[1]);
                 if (!strcmp(pParts[1], "001"))
-                    IRC_SendRaw("JOIN #no\r\n");
+                {
+                    IRC_SendRaw("JOIN #unsuspiciouschannel\r\n");
+                    continue;
+                }
+                else if (!strcmp(pParts[1], "433"))
+                {
+                    continue;
+                }
             }
         }
         free(pParts);
