@@ -58,15 +58,16 @@ THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
     IRC_SendRaw("USER myCBot_ * * :myCBot_\r\n"); // register with daemon
     while ((iRecvSize = recv(iSocket, szBuffer, sizeof (szBuffer), 0))) // receive stream response, 4096 bytes at a time
     {
-		szBuffer[iRecvSize] = '\0'; // zero-terminated
-		printf("%s\r\n", szBuffer);
-		iSize = explode(&pParts, szBuffer, ' '); // split parameters
+	szBuffer[iRecvSize] = '\0'; // zero-terminated
+	printf("%s\r\n", szBuffer);
+	iSize = explode(&pParts, szBuffer, ' '); // split parameters
 
-		if (pParts[0] && pParts[1])
+	if (pParts[0] && pParts[1])
         {
             if (!strcmp(pParts[0], "PING"))
+            {
                 IRC_SendRaw("PONG %s\r\n", pParts[1]);
-
+            }
             else if (!strcmp(pParts[1], "JOIN"))
             {
                 printf("IRC_OnJoin event\r\n");
