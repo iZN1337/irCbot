@@ -55,7 +55,7 @@ void IRC_ProcessEvents(char *pLine)
         }
         else if (!strcmp(pParts[1], "PRIVMSG"))
         {
-            switch ()
+            switch (pParts[2][0])
             {
                 case '#':
                 case '+':
