@@ -12,6 +12,7 @@
 
 #define CMD_S(cmd) (void*)(cmd)
 #define CMD_F(cmd) (&cmd)
+#define CMD_LIST void* CMD_list[][2] =
 
 extern void* CMD_string[][2]; // for later use in other files
 

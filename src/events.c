@@ -10,7 +10,7 @@
 void IRC_ProcessEvents(char *pLine)
 {
 	char **pParts;
-    unsigned int iSize;
+	unsigned int iSize;
 
 	printf("%s\n", pLine);
 

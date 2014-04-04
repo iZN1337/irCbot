@@ -12,10 +12,9 @@
 void CMD_Ping(char* channel, unsigned int argc, char** args)
 {
 	IRC_SendRaw("PRIVMSG %s :Pong!\r\n", channel);
-    return;
 }
 
-void* CMD_list[][2] =
+CMD_LIST
 {
 	{ CMD_S("ping"), CMD_F(CMD_Ping) } // when a user types !ping, call CMD_Ping
 };
