@@ -54,7 +54,7 @@ void IRC_ProcessEvents(char *pLine)
             goto iExitLoc;
         }
         else if (!strcmp(pParts[1], "PRIVMSG"))
-        {// +%@#
+        {
             switch ()
             {
                 case '#':
