@@ -5,8 +5,8 @@
  * @last update: N/A
  */
 
-#ifndef CONSTANTS_H_INCLUDED
-	#define CONSTANTS_H_INCLUDED
+#ifndef EVENTS_H_INCLUDED
+	#define EVENTS_H_INCLUDED
 
 #include "stdafx.h"
 #include "socket.h"
