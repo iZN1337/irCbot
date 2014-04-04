@@ -67,7 +67,25 @@ void IRC_ProcessEvents(char *pLine)
                 }
                 default:
                 {
-                    // private message
+                    if (pParts[3][1] == '\x01')
+                    {
+                        if (!strncmp(pParts[3] + 2, "VERSION", 7))
+                        {
+                            IRC_SendRaw("PRIVMSG #no :version fr\r\n");
+                        }
+                        else if (!strncmp(pParts[3] + 2, "TIME", 4))
+                        {
+                            IRC_SendRaw("PRIVMSG #no :time fr\r\n");
+                        }
+                        else if (!strncmp(pParts[3] + 2, "FINGER", 6))
+                        {
+                            IRC_SendRaw("PRIVMSG #no :finger fr\r\n");
+                        }
+                        else if (!strncmp(pParts[3] + 2, "PING", 4))
+                        {
+                            IRC_SendRaw("PRIVMSG #no :ping fr\r\n");
+                        }
+                    }
                 }
             }
         }
