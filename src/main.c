@@ -20,7 +20,7 @@ int main(int argc, char **argv) // entry point
         goto iExitLoc;
     }
 
-    if (!IRC_AttemptConnection("94.242.253.75", 6667)) // connect to IP
+    if (!IRC_AttemptConnection("foco.nl.irc.tl", 6667)) // connect to IP/hostname
     {
         printf("Fatal error: Failed to connect on IRC network!\n");
         goto iExitLoc;

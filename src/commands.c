@@ -26,7 +26,7 @@ static void (*cmd)(char*, unsigned int, char**);
 bool IRC_ProcessCommand(char* channel, unsigned int partc, char **command)
 {
 	unsigned int i;
-	for(i = 0; i < sizeof(CMD_list)/8;++i)
+	for(i = 0; i < sizeof(CMD_list)/(sizeof(void*)*2);++i)
 	{
 		if(!strcmp((char*)(CMD_list[i][0]), &command[0][2]))
 		{

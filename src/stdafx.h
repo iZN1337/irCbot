@@ -15,6 +15,7 @@
 #include <ctype.h>
 
 #if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
+	#define _WIN32_WINNT 0x0501
 	#include <windows.h>
 #else
 	typedef void* HANDLE;

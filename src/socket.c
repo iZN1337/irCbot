@@ -13,22 +13,32 @@ int IRC_AttemptConnection(const char *szAddress, int iPort)
         if (WSAStartup(MAKEWORD(2, 2), &iWsa) != 0)
             return 1;
 	#endif
-        if ((iSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) != INVALID_SOCKET) // initialize socket, sore in iSocket
-        {
-            struct sockaddr_in iServices; // initialize a sockaddr_in struct
 
-            iServices.sin_family = AF_INET; // must be AF_INET (internet)
-            iServices.sin_port = htons(iPort); // convert port to unsigned short
-            iServices.sin_addr.s_addr = inet_addr(szAddress); // convert ipv4 address to an unsigned long
+	struct sockaddr_in iServices; // initialize the structures
+	struct addrinfo aiHints, *aiAddrinfo = NULL;
 
-            if (!connect(iSocket, (struct sockaddr *) &iServices, sizeof (iServices))) // connect to the socket
-            {
-                THANDLE iCoreThread; // declare a THANDLE
-                bool bSuccess = StartThread(&iCoreThread, IRC_ProcessDataThread, NULL); // start IRC_ProcessDataThread in a new thread
-                WaitForThread(iCoreThread); // wait for the thread to finish before proceeding further
-                return bSuccess;
-            }
-        }
+	memset(&aiHints, 0, sizeof(aiHints)); // set aiHints properties
+	aiHints.ai_family = AF_INET;
+	aiHints.ai_socktype = SOCK_STREAM;
+	aiHints.ai_protocol = IPPROTO_TCP;
+
+	if ((iSocket = socket(aiHints.ai_family, aiHints.ai_socktype, aiHints.ai_protocol)) != INVALID_SOCKET) // initialize socket, sore in iSocket
+	{
+		getaddrinfo(szAddress, NULL, &aiHints, &aiAddrinfo); // resolve IP from hostname
+		memcpy(&iServices,aiAddrinfo->ai_addr,sizeof(iServices)); // copy to the sockaddr_in structure
+		freeaddrinfo(aiAddrinfo); // free memory
+
+		iServices.sin_port = htons(iPort); // set the port
+
+		if (!connect(iSocket, (struct sockaddr*)&iServices, sizeof (iServices))) // connect to the socket
+		{
+			THANDLE iCoreThread; // declare a THANDLE
+			bool bSuccess = StartThread(&iCoreThread, IRC_ProcessDataThread, NULL); // start IRC_ProcessDataThread in a new thread
+			WaitForThread(iCoreThread); // wait for the thread to finish before proceeding further
+			return bSuccess;
+		}
+	}
+
 	closesocket(iSocket); // close the socket
     #if (defined(WIN32) || defined(_WIN32) || defined(_WIN64)) // is it a windows build?
         WSACleanup(); // wsa cleanup, windows only
