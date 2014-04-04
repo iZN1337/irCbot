@@ -63,15 +63,14 @@ void IRC_ProcessEvents(char *pLine)
                 case '@':
                 {
                     if (pParts[3][1] == ConfigVal(CONFIG_VALUE_PREFIX)[0])
-                    {
                         IRC_ProcessCommand(pParts[2], iSize, &pParts[3]);
-                    }
                     goto iExitLoc;
                 }
-            }
-            else
-            {
-                goto iExitLoc;
+                default:
+                {
+                    // private message
+                    goto iExitLoc;
+                }
             }
         }
         else if (!strcmp(pParts[1], "ERROR"))
