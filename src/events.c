@@ -10,8 +10,8 @@
 void IRC_ProcessEvents(char *pLine)
 {
 	char **pParts;
-    unsigned int iSize;
-    printf("%s\r\n", pLine);
+	unsigned int iSize;
+	printf("%s\r\n", pLine);
 	iSize = explode(&pParts, pLine, ' ');
 
 	if(pParts[0] && pParts[1])
