@@ -10,6 +10,11 @@
 
 #include "stdafx.h"
 
-void CMD_Ping(/* pass data such as channel and nickname etc... */); // TODO
+#define CMD_S(cmd) (void*)(cmd)
+#define CMD_F(cmd) (&cmd)
+
+extern void* CMD_string[][2]; // for later use in other files
+
+bool IRC_ProcessCommand(char* channel, unsigned int partc, char **command);
 
 #endif // COMMANDS_H_INCLUDED

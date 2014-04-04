@@ -12,12 +12,27 @@ void IRC_ProcessEvents(char* pLine)
 	char **pParts;
     unsigned int iSize;
 
+	printf("%s\n", pLine);
+
 	iSize = explode(&pParts, pLine, ' ');
 
 	if(pParts[0] && pParts[1])
 	{
 		if (!strcmp(pParts[0], "PING"))
+		{
 			IRC_SendRaw("PONG %s\r\n", pParts[1]);
+		}
+		else if(!strcmp(pParts[1], "PRIVMSG"))
+		{
+			if(pParts[3][1] == ConfigVal(CONFIG_VALUE_PREFIX)[0])
+			{
+				IRC_ProcessCommand(pParts[2], iSize, &pParts[3]);
+			}
+		}
+		else if (!strcmp(pParts[1], "001"))
+		{
+			IRC_SendRaw("JOIN #no\r\n");
+		}
 	}
 
 	/*else if (!strcmp(pParts[1], "JOIN"))

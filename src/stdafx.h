@@ -29,3 +29,4 @@ typedef unsigned char bool;
 #include "config.h"
 #include "thread.h"
 #include "events.h"
+#include "commands.h"
