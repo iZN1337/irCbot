@@ -97,6 +97,7 @@ char* IRC_ReadFile(const char *szPath)
 		fread(pContents, 1, lFileSize, pFile); // read the file and store contents into memory
 
 	}
+	fclose(pFile);
 	return pContents; // return a pointer to the file contents
 }
 

@@ -98,5 +98,5 @@ void IRC_OnNicknameConflict()
 
 void IRC_OnBotConnect()
 {
-    IRC_SendRaw("JOIN #no\r\n");
+    IRC_SendRaw("JOIN %s\r\n", ConfigVal(CONFIG_VALUE_CHANNELS));
 }

@@ -63,8 +63,8 @@ THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
     size_t iRecvSize;
     char szBuffer[512], szLines[1024], *lastLine, *pLine, *pNextLine;
 
-    IRC_SendRaw("NICK myCBot_\r\n"); // send the NICK command
-    IRC_SendRaw("USER myCBot_ * * :myCBot_\r\n"); // register with daemon
+    IRC_SendRaw("NICK %s\r\n", ConfigVal(CONFIG_VALUE_NICK)); // send the NICK command
+    IRC_SendRaw("USER %s * * :%s\r\n", ConfigVal(CONFIG_VALUE_USER), ConfigVal(CONFIG_VALUE_REAL)); // register with daemon
 
     while ((iRecvSize = recv(iSocket, szBuffer, sizeof (szBuffer), 0))) // receive stream response, 512 bytes at a time
     {
