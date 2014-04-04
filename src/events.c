@@ -19,39 +19,38 @@ void IRC_ProcessEvents(char *pLine)
         if (!strcmp(pParts[0], "PING"))
         {
             IRC_SendRaw("PONG %s\r\n", pParts[1]);
-            goto iExitLoc;
         }
         else if (!strcmp(pParts[1], "JOIN"))
         {
-            goto iExitLoc;
+
         }
         else if (!strcmp(pParts[1], "PART"))
         {
-            goto iExitLoc;
+
         }
         else if (!strcmp(pParts[1], "KICK"))
         {
-            goto iExitLoc;
+
         }
         else if (!strcmp(pParts[1], "QUIT"))
         {
-            goto iExitLoc;
+
         }
         else if (!strcmp(pParts[1], "MODE"))
         {
-            goto iExitLoc;
+
         }
         else if (!strcmp(pParts[1], "NICK"))
         {
-            goto iExitLoc;
+
         }
         else if (!strcmp(pParts[1], "TOPIC"))
         {
-            goto iExitLoc;
+
         }
         else if (!strcmp(pParts[1], "NOTICE"))
         {
-            goto iExitLoc;
+
         }
         else if (!strcmp(pParts[1], "PRIVMSG"))
         {
@@ -64,35 +63,31 @@ void IRC_ProcessEvents(char *pLine)
                 {
                     if (pParts[3][1] == ConfigVal(CONFIG_VALUE_PREFIX)[0])
                         IRC_ProcessCommand(pParts[2], iSize, &pParts[3]);
-                    goto iExitLoc;
+                    break;
                 }
                 default:
                 {
                     // private message
-                    goto iExitLoc;
                 }
             }
         }
         else if (!strcmp(pParts[1], "ERROR"))
         {
             // rip
-            goto iExitLoc;
         }
         else
         {
             if (!strcmp(pParts[1], "001"))
             {
                 IRC_OnBotConnect();
-                goto iExitLoc;
             }
             else if (!strcmp(pParts[1], "433"))
             {
                 IRC_OnNicknameConflict();
-                goto iExitLoc;
             }
         }
     }
-    iExitLoc:
+
     free(pParts);
 }
 
