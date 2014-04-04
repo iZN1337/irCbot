@@ -19,11 +19,11 @@ unsigned int explode(char *szStr, char **ppOut, const char *szDelim, const size_
     return i; // return number of strings the string was split into
 }*/
 
-int explode(char ***arr_ptr, char *str, char delimiter)
+unsigned int explode(char ***arr_ptr, char *str, const char delimiter)
 {
   char *src = str, *end, *dst;
   char **arr;
-  int size = 1, i;
+  unsigned int size = 1, i;
 
   // Find number of strings
   while ((end = strchr(src, delimiter)) != NULL)
