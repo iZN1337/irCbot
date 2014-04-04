@@ -7,18 +7,24 @@
 
 #include "events.h"
 
-void IRC_ProcessEvents(char* pLine)
+void IRC_ProcessEvents(char *pLine)
 {
 	char **pParts;
+<<<<<<< HEAD
     unsigned int iSize;
 
 	printf("%s\n", pLine);
 
+=======
+	unsigned int iSize;
+	printf("%s\r\n", pLine);
+>>>>>>> f5c85d8a44af407c3c13bae63b7838a654a9129f
 	iSize = explode(&pParts, pLine, ' ');
 
 	if(pParts[0] && pParts[1])
 	{
 		if (!strcmp(pParts[0], "PING"))
+<<<<<<< HEAD
 		{
 			IRC_SendRaw("PONG %s\r\n", pParts[1]);
 		}
@@ -64,92 +70,87 @@ void IRC_ProcessEvents(char* pLine)
 	{
 		printf("IRC_OnNick event\r\n");
 		continue;
+=======
+	        {
+	            IRC_SendRaw("PONG %s\r\n", pParts[1]);
+	            return;
+	        }
+		else if (!strcmp(pParts[1], "JOIN"))
+	        {
+	            return;
+	        }
+	        else if (!strcmp(pParts[1], "PART"))
+	        {
+	            return;
+	        }
+	        else if (!strcmp(pParts[1], "KICK"))
+	        {
+	            return;
+	        }
+	        else if (!strcmp(pParts[1], "QUIT"))
+	        {
+	            return;
+	        }
+	        else if (!strcmp(pParts[1], "MODE"))
+	        {
+	            return;
+	        }
+	        else if (!strcmp(pParts[1], "NICK"))
+	        {
+	            return;
+	        }
+	        else if (!strcmp(pParts[1], "TOPIC"))
+	        {
+	            return;
+	        }
+	        else if (!strcmp(pParts[1], "NOTICE"))
+	        {
+	            return;
+	        }
+	        else if (!strcmp(pParts[1], "PRIVMSG"))
+	        {
+	            if (pParts[2][0] == '#')
+	            {
+	                if (pParts[3][1] == '!')
+	                {
+	                    // check if exists blablalbalal
+	                }
+	                return;
+	            }
+	            else
+	            {
+	                return;
+	            }
+	        }
+	        else if (!strcmp(pParts[1], "ERROR"))
+	        {
+	            // rip
+	            return;
+	        }
+	        else
+	        {
+	            if (!strcmp(pParts[1], "001"))
+	            {
+	                IRC_OnBotConnect();
+	                return;
+	            }
+	            else if (!strcmp(pParts[1], "433"))
+	            {
+	                IRC_OnNicknameConflict();
+	                return;
+	            }
+	        }
+>>>>>>> f5c85d8a44af407c3c13bae63b7838a654a9129f
 	}
-	else if (!strcmp(pParts[1], "TOPIC"))
-	{
-		printf("IRC_OnTopic event\r\n");
-		continue;
-	}
-	else if (!strcmp(pParts[1], "NOTICE"))
-	{
-		printf("IRC_OnNotice event\r\n");
-		continue;
-	}
-	else if (!strcmp(pParts[1], "PRIVMSG"))
-	{
-		if (pParts[2][0] == '#')
-		{
-			printf("CHANNEL MESSAGE!\r\n");
+	free(pParts);
+}
 
-			if (pParts[3][1] == '!')
-			{
-				printf("COMMAND DETECTED: %s\r\n", strstr(pParts[3], "!"));
-				// just for testing
-				// no command handler added yet.
-				if (!strcasecmp(strstr(pParts[3], "!"), "!say"))
-				{
-					int i;
-					char szParams[128];
-					szParams[0] = '\0';
-					for (i = 4; i != iSize; ++ i)
-					{
-						strcat(szParams, pParts[i]);
-						strcat(szParams, " ");
-					}
-					IRC_SendRaw("PRIVMSG %s :%s\r\n", pParts[2], szParams);
-					continue;
-					/*
-					if (pParts[4])
-					{
-						printf("inside parts 4\r\n");
-						int i;
-						char *pParams;
-						pParams = (char*)malloc(sizeof (pParts[iSize]));
-						pParams[0] = '\0';
-						for (i = 4; i != iSize; ++ i)
-						{
-							printf("inside loop\r\n");
-							strcat(pParams, pParts[i]);
-							strcat(pParams, " ");
-						}
-						printf("params: %s\r\n", pParams);
-						IRC_SendRaw("PRIVMSG %s :%s\r\n", pParts[2], pParams);
-						free(pParams);
-					}
-					else
-					{
-						IRC_SendRaw("PRIVMSG %s :No params given.\r\n", pParts[2]);
-					}
+void IRC_OnNicknameConflict()
+{
+    IRC_SendRaw("NICK %s_tmp\r\n", ConfigVal(CONFIG_VALUE_NICK));
+}
 
-				}
-			}
-		}
-		else
-		{
-			printf("PRIVATE MESSAGE!\r\n");
-			continue;
-		}
-	}
-	else if (!strcmp(pParts[1], "ERROR"))
-	{
-		printf("IRC_OnError event\r\n");
-		continue;
-	}
-	else
-	{
-		printf("=> %s\r\n", pParts[1]);
-		if (!strcmp(pParts[1], "001"))
-		{
-			IRC_SendRaw("JOIN #no\r\n");
-			continue;
-		}
-		else if (!strcmp(pParts[1], "433"))
-		{
-			// nick name conflict
-			continue;
-		}
-	}*/
-
-	if(pParts)
-		free(pParts);
+void IRC_OnBotConnect()
+{
+    IRC_SendRaw("JOIN #no\r\n");
 }
