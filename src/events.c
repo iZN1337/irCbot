@@ -1,4 +1,3 @@
-
 /**
 * @project: irCbot - An Internet Relay Chat bot written in C
 * @file: events.c
@@ -56,7 +55,7 @@ void IRC_ProcessEvents(char *pLine)
         }
         else if (!strcmp(pParts[1], "PRIVMSG"))
         {
-            if (pParts[2][0] == '#')
+            if (pParts[2][0] == '#' || pParts[2][0] == '&' || pParts[2][0] == '~' || pParts[2][0] == '*')
             {
                 if (pParts[3][1] == ConfigVal(CONFIG_VALUE_PREFIX)[0])
                 {
