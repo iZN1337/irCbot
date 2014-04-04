@@ -54,14 +54,20 @@ void IRC_ProcessEvents(char *pLine)
             goto iExitLoc;
         }
         else if (!strcmp(pParts[1], "PRIVMSG"))
-        {
-            if (pParts[2][0] == '#' || pParts[2][0] == '&' || pParts[2][0] == '~' || pParts[2][0] == '*')
+        {// +%@#
+            switch ()
             {
-                if (pParts[3][1] == ConfigVal(CONFIG_VALUE_PREFIX)[0])
+                case '#':
+                case '+':
+                case '%':
+                case '@':
                 {
-                    IRC_ProcessCommand(pParts[2], iSize, &pParts[3]);
+                    if (pParts[3][1] == ConfigVal(CONFIG_VALUE_PREFIX)[0])
+                    {
+                        IRC_ProcessCommand(pParts[2], iSize, &pParts[3]);
+                    }
+                    goto iExitLoc;
                 }
-                goto iExitLoc;
             }
             else
             {
