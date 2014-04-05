@@ -26,11 +26,18 @@ CMD(whoami)
 	IRC_SendRaw("PRIVMSG %s :You're %s", channel, user);
 }
 
+CMD(raw)
+{
+	if(argc)
+		IRC_SendRaw(args_raw);
+}
+
 CMD_LIST
 {
 	CMDDEF(ping),
 	CMDDEF(say),
-	CMDDEF(whoami)
+	CMDDEF(whoami),
+	CMDDEF(raw)
 };
 
 
