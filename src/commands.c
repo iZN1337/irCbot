@@ -2,36 +2,48 @@
  * @project: irCbot - An Internet Relay Chat bot written in C
  * @file: commands.c
  * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
- * @last update: N/A
  */
 
 #include "commands.h"
 
 /********************** start editing here **********************/
 
-void CMD_Ping(char* channel, unsigned int argc, char** args)
+// (char* user, char* channel, unsigned int argc, char** args, char* args_raw)
+
+CMD(ping)
 {
-	IRC_SendRaw("PRIVMSG %s :Pong!\r\n", channel);
+	IRC_SendRaw("PRIVMSG %s :Pong!", channel);
+}
+
+CMD(say)
+{
+	if(argc)
+		IRC_SendRaw("PRIVMSG %s :%s", channel, args_raw);
+}
+
+CMD(whoami)
+{
+	IRC_SendRaw("PRIVMSG %s :You're %s", channel, user);
 }
 
 CMD_LIST
 {
-	{ CMD_S("ping"), CMD_F(CMD_Ping) } // when a user types !ping, call CMD_Ping
+	CMDDEF(ping),
+	CMDDEF(say),
+	CMDDEF(whoami)
 };
+
 
 /*********************** stop editing here **********************/
 
-static void (*cmd)(char*, unsigned int, char**);
-
-bool IRC_ProcessCommand(char* channel, unsigned int partc, char **command)
+bool IRC_ProcessCommand(char* user, char* channel, unsigned int partc, char **command, char* raw)
 {
 	unsigned int i;
-	for(i = 0; i < sizeof(CMD_list)/(sizeof(void*)*2);++i)
+	for(i = 0; i < sizeof(CMDlist)/(sizeof(void*)*2);++i)
 	{
-		if(!strcmp((char*)(CMD_list[i][0]), &command[0][2]))
+		if(!strcmp(CMDlist[i].str, &command[0][2]))
 		{
-			cmd = CMD_list[i][1];
-			cmd(channel, partc-4, &command[1]);
+			CMDlist[i].func(user, channel, partc-4, &command[1], raw);
 			return true;
 		}
 	}

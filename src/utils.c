@@ -2,54 +2,41 @@
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: utils.c
  * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
- * @last update: N/A
  */
 
 #include "utils.h"
-/*
-unsigned int explode(char *szStr, char **ppOut, const char *szDelim, const size_t limit)
-{
-    unsigned int
-        i = 0;
-
-    ppOut[0] = strtok(szStr, szDelim); // split by delim
-    while(i != limit-1 && (ppOut[++i] = strtok(NULL, szDelim)) != NULL ); // set ppOut to point to the appropriate split string
-	ppOut[i+1] = ppOut[i]+strlen(ppOut[i])+1;
-
-    return i; // return number of strings the string was split into
-}*/
 
 unsigned int explode(char ***arr_ptr, char *str, const char delimiter)
 {
-  char *src = str, *end, *dst;
-  char **arr;
-  unsigned int size = 1, i;
+	char *src = str, *end, *dst;
+	char **arr;
+	unsigned int size = 1, i;
 
-  // Find number of strings
-  while ((end = strchr(src, delimiter)) != NULL)
-    {
-      ++size;
-      src = end + 1;
-    }
+	while ((end = strchr(src, delimiter)) != NULL)
+	{
+	  ++size;
+	  src = end + 1;
+	}
 
-  arr = malloc(size * sizeof(char *) + (strlen(str) + 1) * sizeof(char));
+	arr = malloc(size * sizeof(char *) + (strlen(str) + 1) * sizeof(char));
 
-  src = str;
-  dst = (char *) arr + size * sizeof(char *);
-  for (i = 0; i < size; ++i)
-    {
-      if ((end = strchr(src, delimiter)) == NULL)
-        end = src + strlen(src);
-      arr[i] = dst;
-      strncpy(dst, src, end - src);
-      dst[end - src] = '\0';
-      dst += end - src + 1;
-      src = end + 1;
-    }
-  *arr_ptr = arr;
+	src = str;
+	dst = (char *) arr + size * sizeof(char *);
+	for (i = 0; i < size; ++i)
+	{
+		if ((end = strchr(src, delimiter)) == NULL)
+		end = src + strlen(src);
+		arr[i] = dst;
+		strncpy(dst, src, end - src);
+		dst[end - src] = '\0';
+		dst += end - src + 1;
+		src = end + 1;
+	}
+	*arr_ptr = arr;
 
-  return size;
+	return size;
 }
+
 char* GetApplicationPath(char *szMargv0)
 {
 	char *pAddr;
@@ -120,4 +107,16 @@ char* replace_first(char* szString, const char cChr, const char cReplacement)
 
 	*pChar = cReplacement;
 	return pChar;
+}
+
+char* IRC_GetParameterAt(const char* szLine, unsigned int iNum)
+{
+	int i = 0;
+	char* pParam;
+
+	pParam = strchr(szLine, ' ');
+	while(pParam && ++i < iNum)
+		pParam = strchr(pParam+1, ' ');
+
+	return pParam+1;
 }

@@ -1,9 +1,8 @@
 /**
-* @project: irCbot - An Internet Relay Chat bot written in C
-* @file: events.c
-* @author: Djole, King_Hual &lt;djolel@net.dut.edu.vn&gt;, &lt;king_hell@abv.bg&gt;
-* @last update: N/A
-*/
+ * @project: irCbot - An Internet Relay Chat bot written in C
+ * @file: events.c
+ * @author: Djole, King_Hual &lt;djolel@net.dut.edu.vn&gt;, &lt;king_hell@abv.bg&gt;
+ */
 
 #include "events.h"
 
@@ -11,14 +10,16 @@ void IRC_ProcessEvents(char *pLine)
 {
     char **pParts;
     unsigned int iSize;
-    printf("%s\r\n", pLine);
+
     iSize = explode(&pParts, pLine, ' ');
+
+    printf("%s\r\n", pLine);
 
     if (pParts[0] && pParts[1])
     {
         if (!strcmp(pParts[0], "PING"))
         {
-            IRC_SendRaw("PONG %s\r\n", pParts[1]);
+            IRC_SendRaw("PONG %s", pParts[1]);
         }
         else if (!strcmp(pParts[1], "JOIN"))
         {
@@ -62,7 +63,7 @@ void IRC_ProcessEvents(char *pLine)
                 case '@':
                 {
                     if (pParts[3][1] == ConfigVal(CONFIG_VALUE_PREFIX)[0])
-                        IRC_ProcessCommand(pParts[2], iSize, &pParts[3]);
+                        IRC_ProcessCommand(&pParts[0][1], pParts[2], iSize, &pParts[3], IRC_GetParameterAt(pLine, 4));
                     break;
                 }
                 default:
@@ -71,19 +72,19 @@ void IRC_ProcessEvents(char *pLine)
                     {
                         if (!strncmp(pParts[3] + 2, "VERSION", 7))
                         {
-                            IRC_SendRaw("PRIVMSG #no :version fr\r\n");
+                            IRC_SendRaw("PRIVMSG #no :version fr");
                         }
                         else if (!strncmp(pParts[3] + 2, "TIME", 4))
                         {
-                            IRC_SendRaw("PRIVMSG #no :time fr\r\n");
+                            IRC_SendRaw("PRIVMSG #no :time fr");
                         }
                         else if (!strncmp(pParts[3] + 2, "FINGER", 6))
                         {
-                            IRC_SendRaw("PRIVMSG #no :finger fr\r\n");
+                            IRC_SendRaw("PRIVMSG #no :finger fr");
                         }
                         else if (!strncmp(pParts[3] + 2, "PING", 4))
                         {
-                            IRC_SendRaw("PRIVMSG #no :ping fr\r\n");
+                            IRC_SendRaw("PRIVMSG #no :ping fr");
                         }
                     }
                 }
@@ -111,10 +112,10 @@ void IRC_ProcessEvents(char *pLine)
 
 void IRC_OnNicknameConflict()
 {
-    IRC_SendRaw("NICK %s_tmp\r\n", ConfigVal(CONFIG_VALUE_NICK));
+    IRC_SendRaw("NICK %s_tmp", ConfigVal(CONFIG_VALUE_NICK));
 }
 
 void IRC_OnBotConnect()
 {
-    IRC_SendRaw("JOIN %s\r\n", ConfigVal(CONFIG_VALUE_CHANNELS));
+    IRC_SendRaw("JOIN %s", ConfigVal(CONFIG_VALUE_CHANNELS));
 }

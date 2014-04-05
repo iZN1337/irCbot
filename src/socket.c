@@ -2,7 +2,6 @@
  * @project: irCbot - An Internet Relay Chat bot written in c
  * @file: socket.c
  * @author: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
- * @last update: N/A
  */
 
 #include "socket.h"
@@ -54,7 +53,7 @@ int IRC_SendRaw(char *szRawCommand, ...) // send a raw formatted message
     va_start(iVa, szRawCommand);
     vsprintf(szBuffer, szRawCommand, iVa);
     va_end(iVa);
-
+	strcat(szBuffer, "\r\n");
     return send(iSocket, szBuffer, strlen(szBuffer), 0) != SOCKET_ERROR;
 }
 
@@ -63,8 +62,8 @@ THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
     size_t iRecvSize;
     char szBuffer[512], szLines[1024], *lastLine, *pLine, *pNextLine;
 
-    IRC_SendRaw("NICK %s\r\n", ConfigVal(CONFIG_VALUE_NICK)); // send the NICK command
-    IRC_SendRaw("USER %s * * :%s\r\n", ConfigVal(CONFIG_VALUE_USER), ConfigVal(CONFIG_VALUE_REAL)); // register with daemon
+    IRC_SendRaw("NICK %s", ConfigVal(CONFIG_VALUE_NICK)); // send the NICK command
+    IRC_SendRaw("USER %s * * :%s", ConfigVal(CONFIG_VALUE_USER), ConfigVal(CONFIG_VALUE_REAL)); // register with daemon
 
     while ((iRecvSize = recv(iSocket, szBuffer, sizeof (szBuffer), 0))) // receive stream response, 512 bytes at a time
     {
