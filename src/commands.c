@@ -39,7 +39,7 @@ CMD_LIST
 bool IRC_ProcessCommand(char* user, char* channel, unsigned int partc, char **command, char* raw)
 {
 	unsigned int i;
-	for(i = 0; i < sizeof(CMDlist)/(sizeof(void*)*2);++i)
+	for(i = 0; i < sizeof(CMDlist)/sizeof(struct CMDstruct);++i)
 	{
 		if(!strcmp(CMDlist[i].str, &command[0][2]))
 		{
