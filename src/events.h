@@ -10,8 +10,8 @@
 #include "stdafx.h"
 #include "socket.h"
 
-void IRC_ProcessEvents(char *pLine);
-void IRC_OnNicknameConflict();
-void IRC_OnBotConnect();
+void IRC_ProcessEvents(INSTANCE iInstance, char *pLine);
+void IRC_OnNicknameConflict(INSTANCE iInstance);
+void IRC_OnBotConnect(INSTANCE iInstance);
 
 #endif

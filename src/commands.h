@@ -11,14 +11,15 @@
 
 #define CMDDEF(cmd) { (#cmd), (CMD_##cmd) }
 #define CMD_LIST static struct CMDstruct CMDlist[] =
-#define CMD(cmd) static void CMD_##cmd(char* user, char* channel, unsigned int argc, char** args, char* args_raw)
+#define CMDPARAMS (INSTANCE iInstance, char* user, char* channel, unsigned int argc, char** args, char* args_raw)
+#define CMD(cmd) static void CMD_##cmd CMDPARAMS
 
 struct CMDstruct
 {
 	char* str;
-	void (*func)(char*, char*, unsigned int, char**, char*);
+	void (*func) CMDPARAMS;
 };
 
-bool IRC_ProcessCommand(char* user, char* channel, unsigned int partc, char **command, char* raw);
+bool IRC_ProcessCommand CMDPARAMS;
 
 #endif // COMMANDS_H_INCLUDED

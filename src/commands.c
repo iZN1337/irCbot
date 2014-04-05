@@ -8,28 +8,28 @@
 
 /********************** start editing here **********************/
 
-// (char* user, char* channel, unsigned int argc, char** args, char* args_raw)
+// (INSTANCE iInstance, char* user, char* channel, unsigned int argc, char** args, char* args_raw)
 
 CMD(ping)
 {
-	IRC_SendRaw("PRIVMSG %s :Pong!", channel);
+	IRC_SendRaw(iInstance, "PRIVMSG %s :Pong!", channel);
 }
 
 CMD(say)
 {
 	if(argc)
-		IRC_SendRaw("PRIVMSG %s :%s", channel, args_raw);
+		IRC_SendRaw(iInstance, "PRIVMSG %s :%s", channel, args_raw);
 }
 
 CMD(whoami)
 {
-	IRC_SendRaw("PRIVMSG %s :You're %s", channel, user);
+	IRC_SendRaw(iInstance, "PRIVMSG %s :You're %s", channel, user);
 }
 
 CMD(raw)
 {
 	if(argc)
-		IRC_SendRaw(args_raw);
+		IRC_SendRaw(iInstance, args_raw);
 }
 
 CMD_LIST
@@ -43,14 +43,14 @@ CMD_LIST
 
 /*********************** stop editing here **********************/
 
-bool IRC_ProcessCommand(char* user, char* channel, unsigned int partc, char **command, char* raw)
+bool IRC_ProcessCommand(INSTANCE iInstance, char* user, char* channel, unsigned int partc, char **command, char* raw)
 {
 	unsigned int i;
 	for(i = 0; i < sizeof(CMDlist)/sizeof(struct CMDstruct);++i)
 	{
 		if(!strcmp(CMDlist[i].str, &command[0][2]))
 		{
-			CMDlist[i].func(user, channel, partc-4, &command[1], raw);
+			CMDlist[i].func(iInstance, user, channel, partc-4, &command[1], raw);
 			return true;
 		}
 	}

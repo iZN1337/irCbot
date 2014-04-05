@@ -6,7 +6,7 @@
 
 #include "events.h"
 
-void IRC_ProcessEvents(char *pLine)
+void IRC_ProcessEvents(INSTANCE iInstance, char *pLine)
 {
     char **pParts;
     unsigned int iSize;
@@ -19,7 +19,7 @@ void IRC_ProcessEvents(char *pLine)
     {
         if (!strcmp(pParts[0], "PING"))
         {
-            IRC_SendRaw("PONG %s", pParts[1]);
+            IRC_SendRaw(iInstance, "PONG %s", pParts[1]);
         }
         else if (!strcmp(pParts[1], "JOIN"))
         {
@@ -63,7 +63,7 @@ void IRC_ProcessEvents(char *pLine)
                 case '@':
                 {
                     if (pParts[3][1] == ConfigVal(CONFIG_VALUE_PREFIX)[0])
-                        IRC_ProcessCommand(&pParts[0][1], pParts[2], iSize, &pParts[3], IRC_GetParameterAt(pLine, 4));
+                        IRC_ProcessCommand(iInstance, &pParts[0][1], pParts[2], iSize, &pParts[3], IRC_GetParameterAt(pLine, 4));
                     break;
                 }
                 default:
@@ -72,19 +72,19 @@ void IRC_ProcessEvents(char *pLine)
                     {
                         if (!strncmp(pParts[3] + 2, "VERSION", 7))
                         {
-                            IRC_SendRaw("PRIVMSG #no :version fr");
+                            IRC_SendRaw(iInstance, "PRIVMSG #no :version fr");
                         }
                         else if (!strncmp(pParts[3] + 2, "TIME", 4))
                         {
-                            IRC_SendRaw("PRIVMSG #no :time fr");
+                            IRC_SendRaw(iInstance, "PRIVMSG #no :time fr");
                         }
                         else if (!strncmp(pParts[3] + 2, "FINGER", 6))
                         {
-                            IRC_SendRaw("PRIVMSG #no :finger fr");
+                            IRC_SendRaw(iInstance, "PRIVMSG #no :finger fr");
                         }
                         else if (!strncmp(pParts[3] + 2, "PING", 4))
                         {
-                            IRC_SendRaw("PRIVMSG #no :ping fr");
+                            IRC_SendRaw(iInstance, "PRIVMSG #no :ping fr");
                         }
                     }
                 }
@@ -98,11 +98,11 @@ void IRC_ProcessEvents(char *pLine)
         {
             if (!strcmp(pParts[1], "001"))
             {
-                IRC_OnBotConnect();
+                IRC_OnBotConnect(iInstance);
             }
             else if (!strcmp(pParts[1], "433"))
             {
-                IRC_OnNicknameConflict();
+                IRC_OnNicknameConflict(iInstance);
             }
         }
     }
@@ -110,21 +110,19 @@ void IRC_ProcessEvents(char *pLine)
     free(pParts);
 }
 
-void IRC_OnNicknameConflict()
+void IRC_OnNicknameConflict(INSTANCE iInstance)
 {
-    IRC_SendRaw("NICK %s`%d", ConfigVal(CONFIG_VALUE_NICK), rand() % 0xFFFF);
+    IRC_SendRaw(iInstance, "NICK %s`%d", ConfigVal(CONFIG_VALUE_NICK), rand() % 0xFFFF);
 }
 
-void IRC_OnBotConnect()
+void IRC_OnBotConnect(INSTANCE iInstance)
 {
-    char **pChannels, **pPerform;
+    char **pPerform;
     int iSize, iIdx;
 
-    iSize = explode(&pChannels, ConfigVal(CONFIG_VALUE_CHANNELS), '~');
-    for (iIdx = 0; iIdx != iSize; ++ iIdx)
-        IRC_SendRaw("JOIN %s", pChannels[iIdx]);
+	IRC_SendRaw(iInstance, "JOIN %s", ConfigVal(CONFIG_VALUE_CHANNELS));
 
     iSize = explode(&pPerform, ConfigVal(CONFIG_VALUE_PERFORM), '~');
     for (iIdx = 0; iIdx != iSize; ++ iIdx)
-        IRC_SendRaw(pPerform[iIdx]);
+        IRC_SendRaw(iInstance, pPerform[iIdx]);
 }

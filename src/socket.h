@@ -34,10 +34,8 @@
 
 #endif
 
-SOCKET iSocket; // unsigned int
-
-int IRC_AttemptConnection(const char *szAddress, int iPort);
-int IRC_SendRaw(char *szRawCommand, ...);
+int IRC_AttemptConnection(const char *szAddress, int iPort, INSTANCE* pOut);
+int IRC_SendRaw(INSTANCE sock, char *szRawCommand, ...);
 THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam); // pointer to a threaded function
 
 #endif // SOCKET_H_INCLUDED
