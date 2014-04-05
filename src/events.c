@@ -92,6 +92,7 @@ void IRC_ProcessEvents(INSTANCE iInstance, char *pLine)
         }
         else if (!strcmp(pParts[1], "ERROR"))
         {
+        	
             // re-connect
         }
         else
