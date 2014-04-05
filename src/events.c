@@ -1,7 +1,7 @@
 /**
  * @project: irCbot - An Internet Relay Chat bot written in C
  * @file: events.c
- * @author: Djole, King_Hual &lt;djolel@net.dut.edu.vn&gt;, &lt;king_hell@abv.bg&gt;
+ * @authors: Djole, King_Hual <djolel@net.dut.edu.vn>, <king_hell@abv.bg>
  */
 
 #include "events.h"
@@ -92,7 +92,7 @@ void IRC_ProcessEvents(char *pLine)
         }
         else if (!strcmp(pParts[1], "ERROR"))
         {
-            // rip
+            // re-connect
         }
         else
         {
@@ -112,10 +112,19 @@ void IRC_ProcessEvents(char *pLine)
 
 void IRC_OnNicknameConflict()
 {
-    IRC_SendRaw("NICK %s_tmp", ConfigVal(CONFIG_VALUE_NICK));
+    IRC_SendRaw("NICK %s`%d", ConfigVal(CONFIG_VALUE_NICK), rand() % 0xFFFF);
 }
 
 void IRC_OnBotConnect()
 {
-    IRC_SendRaw("JOIN %s", ConfigVal(CONFIG_VALUE_CHANNELS));
+    char **pChannels, **pPerform;
+    int iSize, iIdx;
+
+    iSize = explode(&pChannels, ConfigVal(CONFIG_VALUE_CHANNELS), '~');
+    for (iIdx = 0; iIdx != iSize; ++ iIdx)
+        IRC_SendRaw("JOIN %s", pChannels[iIdx]);
+
+    iSize = explode(&pPerform, ConfigVal(CONFIG_VALUE_PERFORM), '~');
+    for (iIdx = 0; iIdx != iSize; ++ iIdx)
+        IRC_SendRaw(pPerform[iIdx]);
 }
