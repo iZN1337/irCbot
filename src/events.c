@@ -121,7 +121,7 @@ void IRC_OnBotConnect(INSTANCE iInstance)
     char **pPerform;
     int iSize, iIdx;
 
-	IRC_SendRaw(iInstance, "JOIN %s", ConfigVal(CONFIG_VALUE_CHANNELS));
+    IRC_SendRaw(iInstance, "JOIN %s", ConfigVal(CONFIG_VALUE_CHANNELS));
 
     iSize = explode(&pPerform, ConfigVal(CONFIG_VALUE_PERFORM), '~');
     for (iIdx = 0; iIdx != iSize; ++ iIdx)
