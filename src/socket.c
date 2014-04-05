@@ -56,7 +56,7 @@ int IRC_SendRaw(INSTANCE sock, char *szRawCommand, ...) // send a raw formatted 
     va_start(iVa, szRawCommand);
     vsprintf(szBuffer, szRawCommand, iVa);
     va_end(iVa);
-	strcat(szBuffer, "\r\n");
+    strcat(szBuffer, "\r\n");
     return send(sock, szBuffer, strlen(szBuffer), 0) != SOCKET_ERROR;
 }
 
@@ -96,8 +96,7 @@ THREAD_CALLBACK IRC_ProcessDataThread(void* lpParam)
 
 		strcpy(szLines, lastLine+2);
     }
-
-	closesocket(iInstance);
+    closesocket(iInstance);
     return 0;
 }
 
