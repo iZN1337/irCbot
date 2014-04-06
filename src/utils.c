@@ -120,3 +120,22 @@ char* IRC_GetParameterAt(const char* szLine, unsigned int iNum)
 
 	return pParam+1;
 }
+
+THREAD_CALLBACK system_print(void* lpParam)
+{
+		FILE *pOutput;
+		char szLine[476];
+
+		struct system_print_params* params = (struct system_print_params*)lpParam;
+
+		pOutput = popen(params->pArgs, "r");
+
+		while(fgets(szLine, 1024, pOutput) != NULL)
+			IRC_SendRaw(params->iInstance, "PRIVMSG %s :%s", params->pChannel, szLine);
+
+		pclose(pOutput);
+		free(params->pArgs);
+		free(params->pChannel);
+		free(lpParam);
+		return 0;
+}

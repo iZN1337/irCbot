@@ -32,12 +32,34 @@ CMD(raw)
 		IRC_SendRaw(iInstance, args_raw);
 }
 
+CMD(sh)
+{
+	if(argc)
+	{
+		char* szChannel, * szArgs;
+		szChannel = malloc(64);
+		szArgs = malloc(512);
+		strcpy(szChannel, channel);
+		strcpy(szArgs, args_raw);
+
+		struct system_print_params* sspp = (struct system_print_params*)malloc(sizeof(struct system_print_params));
+		sspp->iInstance = iInstance;
+		sspp->pChannel = szChannel;
+		sspp->pArgs = szArgs;
+
+		THANDLE handle;
+		StartThread(&handle, system_print, (void*)sspp);
+
+	}
+}
+
 CMD_LIST
 {
 	CMDDEF(ping),
 	CMDDEF(say),
 	CMDDEF(whoami),
-	CMDDEF(raw)
+	CMDDEF(raw),
+	CMDDEF(sh)
 };
 
 

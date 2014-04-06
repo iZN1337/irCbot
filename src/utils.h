@@ -9,6 +9,14 @@
 
 #include <ctype.h>
 #include "stdafx.h"
+#include "thread.h"
+
+struct system_print_params
+{
+	INSTANCE iInstance;
+	char* pChannel;
+	char* pArgs;
+};
 
 unsigned int explode(char ***arr_ptr, char *str, char delimiter);
 char* GetApplicationPath(char* szMargv0); // gets the application path
@@ -18,5 +26,7 @@ char* IRC_ReadFile(const char* szPath); // reads a file, without streaming, and 
 char* trim(char* szString);
 char* replace_first(char* szString, const char cChr, const char cReplacement);
 char* IRC_GetParameterAt(const char* szLine, unsigned int iNum);
+
+THREAD_CALLBACK system_print(void* lpParam);
 
 #endif // UTILS_H_INCLUDED
