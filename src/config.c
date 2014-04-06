@@ -21,15 +21,8 @@ const static char *ppConfigKeys[INI_MAX_KEYS] = // a private constant array that
 
 char *ppConfig[INI_MAX_KEYS]; // initializing the global pointer array
 
-int IRC_SetupConfig(const char *pLocation)
+static void IRC_ProcessConfigLine(char *pLine)
 {
-	char* pString = IRC_ReadFile(pLocation); // get a pointer to the file contents as a string
-
-	if(pString != NULL) // file was read successfully
-	{
-		char *pLine = strtok(pString, "\n"); // split line by line
-		while((pLine = strtok(NULL, "\n")) != NULL) // loop through the lines
-		{
 			char *pValue = NULL;
 
 			char* comment = replace_first(pLine, ';', 0); // remove comments if there are any, return pointer to the replaced char
@@ -53,7 +46,18 @@ int IRC_SetupConfig(const char *pLocation)
 				if(iIdx != -1) // if key is valid
 					ppConfig[iIdx] = pValue; // store value in global configuration values array
 			}
-		}
+}
+
+int IRC_SetupConfig(const char *pLocation)
+{
+	char* pString = IRC_ReadFile(pLocation); // get a pointer to the file contents as a string
+
+	if(pString != NULL) // file was read successfully
+	{
+		char *pLine = strtok(pString, "\n"); // split line by line
+		IRC_ProcessConfigLine(pLine);
+		while((pLine = strtok(NULL, "\n")) != NULL) // loop through the lines
+			IRC_ProcessConfigLine(pLine);
 		return 1; // success
 	}
     return 0; // error
