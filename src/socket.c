@@ -36,7 +36,6 @@ int IRC_AttemptConnection(const char *szAddress, int iPort, INSTANCE* pOut)
 		{
 			THANDLE iCoreThread; // declare a THANDLE
 			bool bSuccess = StartThread(&iCoreThread, IRC_ProcessDataThread, (void*)pOut); // start IRC_ProcessDataThread in a new thread
-			//WaitForThread(iCoreThread); // wait for the thread to finish before proceeding further
 			return bSuccess;
 		}
 	}

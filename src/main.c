@@ -19,7 +19,9 @@ int main(int argc, char **argv) // entry point
         goto iExitLoc;
     }
 
-    if (!IRC_AttemptConnection(ConfigVal(CONFIG_VALUE_SERVER), atoi(ConfigVal(CONFIG_VALUE_PORT)), NULL)) // connect to IP/hostname
+	INSTANCE instance;
+
+    if (!IRC_AttemptConnection(ConfigVal(CONFIG_VALUE_SERVER), atoi(ConfigVal(CONFIG_VALUE_PORT)), &instance)) // connect to IP/hostname
     {
         printf("Fatal error: Failed to connect on IRC network!\n");
         goto iExitLoc;

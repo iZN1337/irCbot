@@ -16,7 +16,7 @@ bool StartThread(THANDLE* handle, LPTHREAD_START_ROUTINE start_routine, void* ar
 	return thHandle != 0; // return 1 on success, 0 on error
 	#else
 
-	return pthread_create(handle, NULL, start_routine, arg); // call posix' pthread_create, return its return value
+	return !pthread_create(handle, NULL, start_routine, arg); // call posix' pthread_create, return its return value
 
 	#endif
 }
