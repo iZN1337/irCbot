@@ -82,7 +82,7 @@ bool IRC_ProcessCommand(INSTANCE iInstance, char* user, char* channel, unsigned 
 bool IRC_IsAuthorized(const char *pAddress)
 {
     char *pString, szPath[PATH_MAX];
-	GetNameFromPath(szPath, pAppPath, "authusers.ini");
+    GetNameFromPath(szPath, pAppPath, "authusers.ini");
     if ((pString = IRC_ReadFile(szPath)) != NULL)
     {
         char *pLine = strtok(pString, "\n");
