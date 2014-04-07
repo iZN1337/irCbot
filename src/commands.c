@@ -78,3 +78,20 @@ bool IRC_ProcessCommand(INSTANCE iInstance, char* user, char* channel, unsigned 
 	}
 	return false;
 }
+
+bool IRC_IsAuthorized(const char *pAddress)
+{
+    char *pString, szPath[PATH_MAX];
+	GetNameFromPath(szPath, pAppPath, "authusers.ini");
+    if ((pString = IRC_ReadFile(szPath)) != NULL)
+    {
+        char *pLine = strtok(pString, "\n");
+        do
+        {
+            if (!strcmp(pLine, pAddress))
+                return true;
+        }
+        while ((pLine = strtok(NULL, "\n")) != NULL);
+    }
+    return false;
+}
