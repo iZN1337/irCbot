@@ -10,8 +10,8 @@ int main(int argc, char **argv) // entry point
 {
     char szConfigPath[PATH_MAX]; // initialize a char array
 
-	pAppPath = GetApplicationPath(argv[0]); // get the application path, argv[0] always stores application path
-	GetNameFromPath(szConfigPath, pAppPath, "config.ini"); // append "config.ini" to the application path
+    pAppPath = GetApplicationPath(argv[0]); // get the application path, argv[0] always stores application path
+    GetNameFromPath(szConfigPath, pAppPath, "config.ini"); // append "config.ini" to the application path
 
     if (!IRC_SetupConfig(szConfigPath)) // load configuration from file
     {
