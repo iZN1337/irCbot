@@ -10,6 +10,6 @@
 #include "stdafx.h"
 #include "socket.h"
 
-char *pAppPath; // char pointer, stores application path
+extern char *pAppPath; // char pointer, stores application path
 
 #endif // MAIN_H_INCLUDED
