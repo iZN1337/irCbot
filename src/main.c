@@ -27,7 +27,7 @@ int main(int argc, char **argv) // entry point
         goto iExitLoc;
     }
 
-	getchar();
+    getchar();
 
     iExitLoc:
     return 0;
