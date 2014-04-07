@@ -15,12 +15,6 @@ CMD(ping)
 	IRC_SendRaw(iInstance, "PRIVMSG %s :Pong!", channel);
 }
 
-CMD(say)
-{
-	if(argc)
-		IRC_SendRaw(iInstance, "PRIVMSG %s :%s", channel, args_raw);
-}
-
 CMD(whoami)
 {
 	IRC_SendRaw(iInstance, "PRIVMSG %s :You're %s", channel, user);
@@ -28,35 +22,58 @@ CMD(whoami)
 
 CMD(raw)
 {
-	if(argc)
-		IRC_SendRaw(iInstance, args_raw);
+    if (IRC_IsAuthorized(user))
+    {
+        if (argc)
+        {
+            IRC_SendRaw(iInstance, args_raw);
+        }
+        else
+        {
+            IRC_SendRaw(iInstance, "PRIVMSG %s :Usage: .raw [Command]", channel);
+        }
+    }
+    else
+    {
+        IRC_SendRaw(iInstance, "PRIVMSG %s :You are not authorized to use this command.", channel);
+    }
 }
 
 CMD(sh)
 {
-	if(argc)
-	{
-		char* szChannel, * szArgs;
-		szChannel = malloc(64);
-		szArgs = malloc(512);
-		strcpy(szChannel, channel);
-		strcpy(szArgs, args_raw);
+    if (IRC_IsAuthorized(user))
+    {
+        if (argc)
+        {
+            char* szChannel, * szArgs;
+            szChannel = malloc(64);
+            szArgs = malloc(512);
+            strcpy(szChannel, channel);
+            strcpy(szArgs, args_raw);
 
-		struct system_print_params* sspp = (struct system_print_params*)malloc(sizeof(struct system_print_params));
-		sspp->iInstance = iInstance;
-		sspp->pChannel = szChannel;
-		sspp->pArgs = szArgs;
+            struct system_print_params* sspp = (struct system_print_params*)malloc(sizeof(struct system_print_params));
+            sspp->iInstance = iInstance;
+            sspp->pChannel = szChannel;
+            sspp->pArgs = szArgs;
 
-		THANDLE handle;
-		StartThread(&handle, system_print, (void*)sspp);
+            THANDLE handle;
+            StartThread(&handle, system_print, (void*)sspp);
 
-	}
+        }
+        else
+        {
+            IRC_SendRaw(iInstance, "PRIVMSG %s :Usage: .sh [Command]", channel);
+        }
+    }
+    else
+    {
+        IRC_SendRaw(iInstance, "PRIVMSG %s :You are not authorized to use this command.", channel);
+    }
 }
 
 CMD_LIST
 {
 	CMDDEF(ping),
-	CMDDEF(say),
 	CMDDEF(whoami),
 	CMDDEF(raw),
 	CMDDEF(sh)
